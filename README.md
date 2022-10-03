@@ -15,7 +15,7 @@ Follow the instructions in [this page](https://learn.microsoft.com/en-us/azure/s
 ### Enable CORS
 Since the Excel application will connect directly to the search index, we need to enable CORS for this index. To do this, in the Azure Portal choose the "Indexes" tab and click on the "hotels-sample-index". Click "CORS" and select "All" as the allowed origin type and choose "Save".
 
-[INSERT CORS IMAGE]
+![Enable CORS](https://raw.githubusercontent.com/liamca/excel-search-app/main/images/cors.png?token=GHSAT0AAAAAABV7TNF5GQ6Q2B3BDMF6LFPMYZ3FYDA)
 
 ### Create a Query API Key
 All queries to Azure Cognitive Search need to be authenticated. Since we will be querying from Excel, we will want to create a Query API key as this key has limited priviledges to the search index and also sufficient priviledges to suppor the Excel search application. To create this key, choose the "Keys" option from the main page of your Azure Cognitive Search service.
@@ -24,7 +24,9 @@ Under "Manage Query Keys" choose "Add". Name the key "excel-search-app" and choo
 
 Copy the resulting Query Key and save this for a future step.
 
-[INSERT Query Key IMAGE]
+![Create Query Key](https://raw.githubusercontent.com/liamca/excel-search-app/main/images/query-key.png?token=GHSAT0AAAAAABV7TNF5C726GR5V6QNCW6U2YZ3FZGQ)
+
+![Rename Query](https://raw.githubusercontent.com/liamca/excel-search-app/main/images/pq-01-rename-query.png?token=GHSAT0AAAAAABV7TNF4RKDF6YQTFMJAFMXOYZ3F2EA)
 
 ## Create the Excel Search Application
 Now that we have a search index, we will create a new Excel spreadsheet for this search application. In this step we will leverage Power Query to execute the search queries that are shown. To get started create a new Excel blank spreadsheet and name it excel-hotel-search-app.xlsx.
@@ -37,6 +39,7 @@ To create a query to get all the Categories, choose Data -> Get Data -> From Oth
 Right click on facetCategories and choose "Advanced Editor".
 To allow us to retrieve the ratings, we simply need to replace any reference to the work "Category" with the work "Rating".
 
+![Advanced Editor](https://raw.githubusercontent.com/liamca/excel-search-app/main/images/pq-02-advanced-editor.png?token=GHSAT0AAAAAABV7TNF4AW2E6R7WIE3SDOHIYZ3F2FQ)
 
 Paste the following code:
 
@@ -56,6 +59,8 @@ in
 Update YOUR_SEARCHSERVICENAME to your Azure Cognitive Search service name and update YOUR_QUERYAPIKEY to the Query API Key you created in the above step.
 Click Done and you should see a table that shows all the possible categories.
 
+![Categories Table View](https://raw.githubusercontent.com/liamca/excel-search-app/main/images/pq-03-categories.png?token=GHSAT0AAAAAABV7TNF4OB6J7JMNYZWXN554YZ3F2HQ)
+
 ### Retrieve all Parking Included values
 To create a query to get all the ParkingIncluded, we will duplicate the previous query and modify it. To do this, right click on "facetCategories" and choose "Duplicate".
 Right click on the duplicated query and name it facetParkingIncluded.
@@ -67,7 +72,8 @@ Close the Power Query Editor and chooose "Keep".
 
 You should now see two new worksheet tabs called "facetParkingIncluded" and "facetCategories".
 
-[INSERT IMAGE]
+![Excel Facet Tabs](https://raw.githubusercontent.com/liamca/excel-search-app/main/images/pq-04-new-facet-tabs.png?token=GHSAT0AAAAAABV7TNF5XPCRZWZPS4HHBBN4YZ3F2JQ)
+
 
 
 

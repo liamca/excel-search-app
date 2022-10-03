@@ -26,18 +26,20 @@ Copy the resulting Query Key and save this for a future step.
 
 [INSERT Query Key IMAGE]
 
-### Create the Excel Search Application
+## Create the Excel Search Application
 Now that we have a search index, we will create a new Excel spreadsheet for this search application. In this step we will leverage Power Query to execute the search queries that are shown. To get started create a new Excel blank spreadsheet and name it excel-hotel-search-app.xlsx.
 
 Next we will create some Power Queries. The first one we will create will retrieve all of the unique facet values (categories) for a particular field. For our tutorial we will use the facetable fields Category& Rating. 
 
+### Retrieve all Categories 
 To create a query to get all the Categories, choose Data -> Get Data -> From Other Sources -> Blank Query. This will open Power Query and create a query titled Query1. Right click and choose "Rename" and name the query "facetCategories".
 
-Right click on facetCategories and choose "Advanced Editor"
+Right click on facetCategories and choose "Advanced Editor".
 Paste the following code:
 
+```
 let
-    Source = Json.Document(Web.Contents("https://[SEARCHSERVICENAME].search.windows.net/indexes/hotels-sample-index/docs?api-version=2021-04-30-Preview&search=*&facet=Category%2Ccount%3A0&top=0", [Headers=[#"api-key"="C60C007BA5B5A8D6055D426788F8D4E1"]])),
+    Source = Json.Document(Web.Contents("https://YOUR_SEARCHSERVICENAME.search.windows.net/indexes/hotels-sample-index/docs?api-version=2021-04-30-Preview&search=*&facet=Category%2Ccount%3A0&top=0", [Headers=[#"api-key"="YOUR_QUERYAPIKEY"]])),
     #"@search facets" = Source[#"@search.facets"],
     facets = #"@search facets"[Category],
     #"Converted to Table" = Table.FromList(facets, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
@@ -46,6 +48,38 @@ let
     #"Sorted Rows" = Table.Sort(#"Renamed Columns",{{"Values", Order.Ascending}})
 in
     #"Sorted Rows"
+```
+
+Update YOUR_SEARCHSERVICENAME to your Azure Cognitive Search service name and update YOUR_QUERYAPIKEY to the Query API Key you created in the above step.
+Click Done and you should see a table that shows all the possible categories.
+
+### Retrieve all Ratings 
+To create a query to get all the Ratings, we will duplicate the previous query and modify it. To do this, right click on "facetCategories" and choose "Duplicate".
+
+
+, choose Data -> Get Data -> From Other Sources -> Blank Query. This will open Power Query and create a query titled Query1. Right click and choose "Rename" and name the query "facetCategories". Rename it by right clicking on the duplicated query and choose "Rename" and enter "facetRatings".
+
+Right click on facetRatings and choose "Advanced Editor".
+
+Paste the following code:
+
+```
+let
+    Source = Json.Document(Web.Contents("https://YOUR_SEARCHSERVICENAME.search.windows.net/indexes/hotels-sample-index/docs?api-version=2021-04-30-Preview&search=*&facet=Category%2Ccount%3A0&top=0", [Headers=[#"api-key"="YOUR_QUERYAPIKEY"]])),
+    #"@search facets" = Source[#"@search.facets"],
+    facets = #"@search facets"[Category],
+    #"Converted to Table" = Table.FromList(facets, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+    #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"value"}, {"Column1.value"}),
+    #"Renamed Columns" = Table.RenameColumns(#"Expanded Column1",{{"Column1.value", "Values"}}),
+    #"Sorted Rows" = Table.Sort(#"Renamed Columns",{{"Values", Order.Ascending}})
+in
+    #"Sorted Rows"
+```
+
+Update YOUR_SEARCHSERVICENAME to your Azure Cognitive Search service name and update YOUR_QUERYAPIKEY to the Query API Key you created in the above step.
+Click Done and you should see a table that shows all the possible categories.
+
+
 
 
 

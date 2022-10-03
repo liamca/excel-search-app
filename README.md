@@ -166,5 +166,36 @@ Open workbook facetParkingIncluded and update the text of cell A1 from "Values" 
 
 Go back to the "Search" workbook and verify that "All" is an option in the lists.
 
+### Create the Search Query
+We now have everything we need to execute the actual search query that leverages the search query text and search filters.
+
+Create a new blank query by choosing Home->Get Data->From Other Sources->Blank Query
+
+Right click on the new query and name it postSearchQuery
+
+Right click on postSearchQuery and choose Advanced Editor
+
+Enter the following into the editor
+
+```
+let
+    url = "https://YOUR_SEARCHSERVICENAME.search.windows.net/indexes/hotels-sample-index/docs/search?api-version=2021-04-30-Preview",
+    queryApiKey = "YOUR_QUERYAPIKEY",
+    // Create the search string - need an if for case where it is empty
+    searchQueryStr =if Excel.CurrentWorkbook(){[Name="searchQuery"]}[Content]{0}[Column1] <> null then """search"": """ & Excel.CurrentWorkbook(){[Name="searchQuery"]}[Content]{0}[Column1] & """" else """search"": ""*""",
+    categoryFilter = if Excel.CurrentWorkbook(){[Name="filterCategory"]}[Content]{0}[Column1] <> "All" and Excel.CurrentWorkbook(){[Name="filterCategory"]}[Content]{0}[Column1] <> null then """filter"": ""Category eq '" & Excel.CurrentWorkbook(){[Name="filterCategory"]}[Content]{0}[Column1] & "'""," else "",
+    parkingIncludedFilter = if Excel.CurrentWorkbook(){[Name="filterParkingIncluded"]}[Content]{0}[Column1] <> "All" and Excel.CurrentWorkbook(){[Name="filterCategory"]}[Content]{0}[Column1] <> null then """filter"": ""ParkingIncluded eq '" & Excel.CurrentWorkbook(){[Name="filterParkingIncluded"]}[Content]{0}[Column1] & "'""," else "",
+    body = "{""queryType"": ""simple"", " & categoryFilter & parkingIncludedFilter & searchQueryStr & "}",
+    Source = Json.Document(Web.Contents(url,[Headers = [#"Content-Type"="application/json", #"api-key"=queryApiKey], Content=Text.ToBinary(body)  ] )),
+    value = Source[value],
+    #"Converted to Table" = Table.FromList(value, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+    #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"HotelId", "HotelName", "Description", "Description_fr", "Category", "Tags", "ParkingIncluded", "LastRenovationDate", "Rating", "Location", "Address", "Rooms"}, {"Column1.HotelId", "Column1.HotelName", "Column1.Description", "Column1.Description_fr", "Column1.Category", "Column1.Tags", "Column1.ParkingIncluded", "Column1.LastRenovationDate", "Column1.Rating", "Column1.Location", "Column1.Address", "Column1.Rooms"})
+in
+    #"Expanded Column1"```
+
+Update YOUR_SEARCHSERVICENAME to your Azure Cognitive Search service name and update YOUR_QUERYAPIKEY to the Query API Key you created in the above step.
+Click Done and you should see a table that shows all the possible search results based on the selected filter and text search.
+
+Close the Power Query Editor and Keep the changes.
 
 

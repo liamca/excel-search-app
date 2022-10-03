@@ -152,6 +152,10 @@ Source: =parkingIncludedTable
 
 Click OK and close the Data Validation Window.
 
+Move the mouse to the right of cell B2 and choose the drop down list to verify data is being retrieved. You should notice that the header from the table "Values" is being included. We will fix this next.
+
+![Drop Down List Test](images/search-app-03-drop-down-test.png)
+
 
 
 

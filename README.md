@@ -213,6 +213,7 @@ Go to the "Search App" workbook and paste the cells at B1.
 
 The result should look like this:
 
+![Search App Combined](images/search-app-04-combiined.png)
 
 
 

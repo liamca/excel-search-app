@@ -215,9 +215,30 @@ The result should look like this:
 
 ![Search App Combined](images/search-app-04-combiined.png)
 
+At this point you should be able to choose a value in the dropdown or enter text into cell C1 for the search query and then choose Data->Refresh All to execute the query.
 
+### Add a Search Button to Execute Search (Optional)
 
+To make things simpler, we are going to add a search button that will execute the query to retrieve the data and populate the resulting table. This requires you to save the file as an Macro Enabled Workbook so you may choose to skip this step.
 
+To create the search button:
 
+Save the file as a Excel Macro Enabled Workbook with a file type of (*.xlsm).
+In the "Search App" workbook, go to cell A1.
+From the menu choose Insert -> Icons
+Type "Search" into the box and choose the icon for your button and press "Insert"
+Resize and move the icon to where you would like it placed.
+Right click on the icon and choose "Assign Macro"
+Choose "New" and paste the following code:
+
+```
+Sub RefreshSearchResults()
+    ThisWorkbook.Queries("postSearchQuery").Refresh
+End Sub
+```
+
+Close the VBA Editor window.
+
+Enter a value into cell C1 for the search text such as "chic" and press the search button. You should see the results refreshed. In the event this does not work, try right clicking the image and choose "Assign Macro", choose RefreshSearchResults, close the window and try again.
 
 

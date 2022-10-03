@@ -15,7 +15,7 @@ Follow the instructions in [this page](https://learn.microsoft.com/en-us/azure/s
 ### Enable CORS
 Since the Excel application will connect directly to the search index, we need to enable CORS for this index. To do this, in the Azure Portal choose the "Indexes" tab and click on the "hotels-sample-index". Click "CORS" and select "All" as the allowed origin type and choose "Save".
 
-![Enable CORS](https://raw.githubusercontent.com/liamca/excel-search-app/main/images/cors.png?token=GHSAT0AAAAAABV7TNF5GQ6Q2B3BDMF6LFPMYZ3FYDA)
+![Enable CORS](images/cors.png)
 
 ### Create a Query API Key
 All queries to Azure Cognitive Search need to be authenticated. Since we will be querying from Excel, we will want to create a Query API key as this key has limited priviledges to the search index and also sufficient priviledges to suppor the Excel search application. To create this key, choose the "Keys" option from the main page of your Azure Cognitive Search service.
@@ -24,9 +24,7 @@ Under "Manage Query Keys" choose "Add". Name the key "excel-search-app" and choo
 
 Copy the resulting Query Key and save this for a future step.
 
-![Create Query Key](https://raw.githubusercontent.com/liamca/excel-search-app/main/images/query-key.png?token=GHSAT0AAAAAABV7TNF5C726GR5V6QNCW6U2YZ3FZGQ)
-
-![Rename Query](https://raw.githubusercontent.com/liamca/excel-search-app/main/images/pq-01-rename-query.png?token=GHSAT0AAAAAABV7TNF4RKDF6YQTFMJAFMXOYZ3F2EA)
+![Create Query Key](images/query-key.png)
 
 ## Create the Excel Search Application
 Now that we have a search index, we will create a new Excel spreadsheet for this search application. In this step we will leverage Power Query to execute the search queries that are shown. To get started create a new Excel blank spreadsheet and name it excel-hotel-search-app.xlsx.
@@ -36,10 +34,12 @@ Next we will create some Power Queries. The first one we will create will retrie
 ### Retrieve all Categories 
 To create a query to get all the Categories, choose Data -> Get Data -> From Other Sources -> Blank Query. This will open Power Query and create a query titled Query1. Right click and choose "Rename" and name the query "facetCategories".
 
+![Rename Query](images/pq-01-rename-query.png)
+
 Right click on facetCategories and choose "Advanced Editor".
 To allow us to retrieve the ratings, we simply need to replace any reference to the work "Category" with the work "Rating".
 
-![Advanced Editor](https://raw.githubusercontent.com/liamca/excel-search-app/main/images/pq-02-advanced-editor.png?token=GHSAT0AAAAAABV7TNF4AW2E6R7WIE3SDOHIYZ3F2FQ)
+![Advanced Editor](images/pq-02-advanced-editor.png)
 
 Paste the following code:
 
@@ -59,7 +59,7 @@ in
 Update YOUR_SEARCHSERVICENAME to your Azure Cognitive Search service name and update YOUR_QUERYAPIKEY to the Query API Key you created in the above step.
 Click Done and you should see a table that shows all the possible categories.
 
-![Categories Table View](https://raw.githubusercontent.com/liamca/excel-search-app/main/images/pq-03-categories.png?token=GHSAT0AAAAAABV7TNF4OB6J7JMNYZWXN554YZ3F2HQ)
+![Categories Table View](images/pq-03-categories.png)
 
 ### Retrieve all Parking Included values
 To create a query to get all the ParkingIncluded, we will duplicate the previous query and modify it. To do this, right click on "facetCategories" and choose "Duplicate".
@@ -70,12 +70,12 @@ Click Done and you should see a table that shows all the possible values for Par
 
 Close the Power Query Editor and chooose "Keep".
 
-You should now see two new worksheet tabs called "facetParkingIncluded" and "facetCategories".
+You should now see two new workbook tabs called "facetParkingIncluded" and "facetCategories".
 
-![Excel Facet Tabs](https://raw.githubusercontent.com/liamca/excel-search-app/main/images/pq-04-new-facet-tabs.png?token=GHSAT0AAAAAABV7TNF5XPCRZWZPS4HHBBN4YZ3F2JQ)
+![Excel Facet Tabs](images/pq-04-new-facet-tabs.png)
 
 ## Name the tables
-We now need to name the resulting tables that exist within the worksheets so that the search interface we will create later can refer to them. 
+We now need to name the resulting tables that exist within the workbooks so that the search interface we will create later can refer to them. 
 
 Open the facetCategories tab and click on cell A1 and choose Ctrl-F3 to open the Name Manager.
 Press "New" and set:
@@ -101,12 +101,12 @@ Close the Name Manager.
 
 ## Create the Search Interface
 
-Now that we have retrieved the facets, we will create a worksheet that allows us to do full text search and to leverage these facets to refine the search results.
+Now that we have retrieved the facets, we will create a workbook that allows us to do full text search and to leverage these facets to refine the search results.
 
-Right click and rename the worksheet "Sheet1" to "Search" and drag it to the left so it is the first worksheet of the workbook.
+Right click and rename the workbook "Sheet1" to "Search" and drag it to the left so it is the first workbook of the workbook.
 
 ### Create the filters and name them
-In the Search worksheet add the following text into cells A1, A2 and A3
+In the Search workbook add the following text into cells A1, A2 and A3
 
 ```
 Search Query
@@ -124,14 +124,5 @@ filterCategory
 filterParkingIncluded
 ```
 
-![Name Cells](https://raw.githubusercontent.com/liamca/excel-search-app/main/images/search-app-01-filter-names.png?token=GHSAT0AAAAAABV7TNF4MDFBFVD74DUMHJVIYZ3GVBQ)
-
-
-
-
-
-
-
-
-
+![Name Cells](images/search-app-01-filter-names.png)
 

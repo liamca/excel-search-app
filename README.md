@@ -33,6 +33,20 @@ Next we will create some Power Queries. The first one we will create will retrie
 
 To create a query to get all the Categories, choose Data -> Get Data -> From Other Sources -> Blank Query. This will open Power Query and create a query titled Query1. Right click and choose "Rename" and name the query "facetCategories".
 
+Right click on facetCategories and choose "Advanced Editor"
+Paste the following code:
+
+let
+    Source = Json.Document(Web.Contents("https://[SEARCHSERVICENAME].search.windows.net/indexes/hotels-sample-index/docs?api-version=2021-04-30-Preview&search=*&facet=Category%2Ccount%3A0&top=0", [Headers=[#"api-key"="C60C007BA5B5A8D6055D426788F8D4E1"]])),
+    #"@search facets" = Source[#"@search.facets"],
+    facets = #"@search facets"[Category],
+    #"Converted to Table" = Table.FromList(facets, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+    #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"value"}, {"Column1.value"}),
+    #"Renamed Columns" = Table.RenameColumns(#"Expanded Column1",{{"Column1.value", "Values"}}),
+    #"Sorted Rows" = Table.Sort(#"Renamed Columns",{{"Values", Order.Ascending}})
+in
+    #"Sorted Rows"
+
 
 
 

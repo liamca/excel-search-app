@@ -74,6 +74,33 @@ You should now see two new worksheet tabs called "facetParkingIncluded" and "fac
 
 ![Excel Facet Tabs](https://raw.githubusercontent.com/liamca/excel-search-app/main/images/pq-04-new-facet-tabs.png?token=GHSAT0AAAAAABV7TNF5XPCRZWZPS4HHBBN4YZ3F2JQ)
 
+## Create the Search Interface
+
+Now that we have retrieved the facets, we will create a worksheet that allows us to do full text search and to leverage these facets to refine the search results.
+
+Right click and rename the worksheet "Sheet1" to "Search" and drag it to the left so it is the first worksheet of the workbook.
+
+### Create the filters and name them
+In the Search worksheet add the following text into cells A1, A2 and A3
+
+```
+Search Query
+Category
+Parking Included
+```
+
+Cells B1, B2 and B3 will be used to eithen enter the search query (B1) or choose the filters (B2, B3). The filters will be a drop down box populated with the facet values we previously created queries for.
+
+Next we will name cells B1, B2 and B3 as follows (see below image for where to enter the name). Remember to press ENTER after entering the name for the cell:
+
+```
+searchQuery
+filterCategory
+filterParkingIncluded
+```
+
+
+
 
 
 

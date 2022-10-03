@@ -74,6 +74,31 @@ You should now see two new worksheet tabs called "facetParkingIncluded" and "fac
 
 ![Excel Facet Tabs](https://raw.githubusercontent.com/liamca/excel-search-app/main/images/pq-04-new-facet-tabs.png?token=GHSAT0AAAAAABV7TNF5XPCRZWZPS4HHBBN4YZ3F2JQ)
 
+## Name the tables
+We now need to name the resulting tables that exist within the worksheets so that the search interface we will create later can refer to them. 
+
+Open the facetCategories tab and click on cell A1 and choose Ctrl-F3 to open the Name Manager.
+Press "New" and set:
+
+```
+Name: categoryTable
+Scope: Workbook
+Refers To: =facetCategories!$A:$A
+```
+Choose OK.
+
+Next we will do the same for "Parking Included".
+Click "Add" and enter:
+
+```
+Name: parkingIncludedTable
+Scope: Workbook
+Refers To: =facetParkingIncluded!$A:$A
+```
+Choose OK.
+
+Close the Name Manager.
+
 ## Create the Search Interface
 
 Now that we have retrieved the facets, we will create a worksheet that allows us to do full text search and to leverage these facets to refine the search results.

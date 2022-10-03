@@ -131,5 +131,27 @@ Now we will link the cells B2 and B3 to the facet tables so that a drop down lis
 
 Click on cell B2 and choose "Data Validation" under Data -> Data Tools
 
+![Create Drop Down List](images/search-app-01-data-validation-create-list.png)
+
+Link the list by entering:
+
+```
+Allow: List
+Source: =categoryTable
+```
+
+Click OK
+
+To create the drop down for Parking Included click on cell B3 and choose "Data Validation" under Data -> Data Tools
+Link the list by entering:
+
+```
+Allow: List
+Source: =parkingIncludedTable
+```
+
+Click OK and close the Data Validation Window.
+
+
 
 

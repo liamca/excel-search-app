@@ -156,6 +156,15 @@ Move the mouse to the right of cell B2 and choose the drop down list to verify d
 
 ![Drop Down List Test](images/search-app-03-drop-down-test.png)
 
+### Allowing "All" Filter Values
+There will be cases where you don't actually want to filter results. For example, you might not may not care if parking is or is not included. Since the Parking Included list only has a True and False option, it would be good if we could allow for "All" as an option.
+
+Luckily an easy fix for this is to go to the Workbooks facetParkingIncluded and facetCategories and change the Header "Values" in cell A1 to "All".
+
+Open workbook facetCategories and update the text of cell A1 from "Values" to "All"
+Open workbook facetParkingIncluded and update the text of cell A1 from "Values" to "All"
+
+Go back to the "Search" workbook and verify that "All" is an option in the lists.
 
 
 

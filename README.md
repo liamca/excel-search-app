@@ -99,6 +99,8 @@ filterCategory
 filterParkingIncluded
 ```
 
+![Name Cells](https://raw.githubusercontent.com/liamca/excel-search-app/main/images/search-app-01-filter-names.png?token=GHSAT0AAAAAABV7TNF4MDFBFVD74DUMHJVIYZ3GVBQ)
+
 
 
 

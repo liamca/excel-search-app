@@ -192,10 +192,31 @@ let
     #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"HotelId", "HotelName", "Description", "Description_fr", "Category", "Tags", "ParkingIncluded", "LastRenovationDate", "Rating", "Location", "Address", "Rooms"}, {"Column1.HotelId", "Column1.HotelName", "Column1.Description", "Column1.Description_fr", "Column1.Category", "Column1.Tags", "Column1.ParkingIncluded", "Column1.LastRenovationDate", "Column1.Rating", "Column1.Location", "Column1.Address", "Column1.Rooms"})
 in
     #"Expanded Column1"```
+```
 
 Update YOUR_SEARCHSERVICENAME to your Azure Cognitive Search service name and update YOUR_QUERYAPIKEY to the Query API Key you created in the above step.
 Click Done and you should see a table that shows all the possible search results based on the selected filter and text search.
 
 Close the Power Query Editor and Keep the changes.
+
+### Clean up the Search Interface
+
+From the last step you should see a table that shows the results of the search query. To make the search interface more usable, we will combine the search results, search query and filters into a single workbook.
+
+Rename the workbook "postSearchQuery" to "Search App"
+
+Insert 4 rows above the search results table.
+
+Go to the "Search" workbook and cut cells A1 to B3 into clipboard.
+
+Go to the "Search App" workbook and paste the cells at B1.
+
+The result should look like this:
+
+
+
+
+
+
 
 

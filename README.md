@@ -101,12 +101,12 @@ Close the Name Manager.
 
 ## Create the Search Interface
 
-Now that we have retrieved the facets, we will create a workbook that allows us to do full text search and to leverage these facets to refine the search results.
+Now that we have retrieved the facets and names the resulting tables, we will create a workbook that allows us to do full text search and to leverage these facets to refine the search results.
 
 Right click and rename the workbook "Sheet1" to "Search" and drag it to the left so it is the first workbook of the workbook.
 
 ### Create the filters and name them
-In the Search workbook add the following text into cells A1, A2 and A3
+In the "Search" workbook add the following text into cells A1, A2 and A3
 
 ```
 Search Query
@@ -125,4 +125,11 @@ filterParkingIncluded
 ```
 
 ![Name Cells](images/search-app-01-filter-names.png)
+
+### Link filters to queries as lists
+Now we will link the cells B2 and B3 to the facet tables so that a drop down list can automatically be populated.
+
+Click on cell B2 and choose "Data Validation" under Data -> Data Tools
+
+
 
